@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, Ref, watch } from "vue";
+import { ref, Ref, onMounted, watch } from "vue";
 import draggable from "vuedraggable";
 
 import NoteInput from "./components/NoteInput.vue";
@@ -17,6 +17,8 @@ const selectedNote: Ref<Note> = ref({
   createdAtTime: "12:00",
   images: [],
 });
+let previousLength = 0;
+
 
 interface Note {
   id: string;
@@ -27,18 +29,32 @@ interface Note {
   images: string[];
 }
 
-watch(notesArray.value, () => {
-  selectedNote.value = notesArray.value[notesArray.value.length - 1];
-});
+onMounted(() => {
+  let storageValue = localStorage.getItem("notesArray");
+  if(storageValue){
+    notesArray.value = JSON.parse(storageValue);
+    previousLength = notesArray.value.length
+  }
+})
+
+
+watch(notesArray, () => {
+  if (notesArray.value.length > previousLength) {
+    selectedNote.value = notesArray.value[notesArray.value.length - 1];
+  }
+  previousLength = notesArray.value.length;
+  localStorage.setItem("notesArray", JSON.stringify(notesArray.value));
+}, { deep: true });
+
 
 function excludeNote(id: string) {
-  selectedNote.value = notesArray.value[0];
   notesArray.value = notesArray.value.filter((item) => item.id != id);
+  selectedNote.value = notesArray.value[0];
 }
 </script>
 
 <template>
-  <div class="bg-background w-full h-[100vh] grid grid-cols-12 py-4 gap-8">
+  <div class="bg-background w-full h-[100vh] grid grid-cols-12 py-4 px-72 gap-8">
     <div class="flex flex-col gap-8 h-full rounded-lg col-span-3">
       <NoteInput @addNote="(note : Note) => notesArray.push(note)" />
       <div class="bg-background2/60 flex-1 rounded-lg">
@@ -83,9 +99,6 @@ function excludeNote(id: string) {
         </div>
         <Divider />
         <div class="flex flex-col gap-4">
-          <label for="note" class="text-secondary font-bold text-lg"
-            >Galery</label
-          >
 
           <ImageLoader
             :selectedNote="selectedNote"

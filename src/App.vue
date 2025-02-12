@@ -58,7 +58,7 @@ function removeImage(element : string) {
     <div class="flex flex-col gap-8 h-full rounded-lg col-span-2 md:col-span-3">
       <NoteInput @addNote="(note : Note) => notesArray.push(note)" />
       <div class="flex flex-col gap-1 bg-background2/60 flex-1 rounded-lg">
-        <label class="text-secondary font-semibold text-lg py-2 px-2 bg-customBlue-400 rounded" >Note List</label>
+        <label class="text-secondary font-semibold text-lg py-2 px-2 bg-background2 rounded-t-md md:hidden" >Note List</label>
         <draggable v-model="notesArray" tag="ul" item-key="id" :animation="300">
           
           <template #item="{ element: note }">

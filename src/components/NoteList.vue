@@ -7,14 +7,11 @@ defineProps({
 });
 
 const emit = defineEmits(["selectNote", "excludeNote"]);
-
-
-
 </script>
 
 <template>
   <li
-    class="flex items-center justify-between px-6 p-2 capitalize select-none cursor-pointer rounded-b-none rounded-lg text-lg font-medium"
+    class="flex flex-row justify-between items-center px-6 p-2 capitalize w-full select-none cursor-pointer rounded-b-none rounded-lg text-lg font-medium"
     :class="{
       'bg-customBlue-400 border-b-2 border-b-primary/70 text-secondary':
         selectedNote?.id === note?.id,
@@ -22,13 +19,14 @@ const emit = defineEmits(["selectNote", "excludeNote"]);
         selectedNote?.id !== note?.id,
     }"
   >
-    <span class="block" @click="$emit('selectNote', note)">
+    <span @click="$emit('selectNote', note)" class="block flex-1">
       {{ note?.subject }}
     </span>
+
     <v-icon
       v-if="selectedNote && note?.id === selectedNote.id"
       @click="$emit('excludeNote', note?.id)"
-      class="text-customBlue-300/80 cursor-pointer w-6 h-6 transition-colors ease-linear duration-700"
+      class="text-customBlue-300/80 cursor-pointer w-6 h-6 transition-colors ease-linear duration-700 col-span-2"
       name="bi-trash-fill"
     />
   </li>

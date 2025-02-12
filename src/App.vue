@@ -67,7 +67,7 @@ function excludeNote(id: string) {
         </draggable>
       </div>
     </div>
-    <div class="p-4 px-6 bg-background2/60 h-full rounded-lg col-span-2 md:col-span-9">
+    <div class="p-4 px-6 bg-background2/60 h-full rounded-lg col-span-2 min-h-[60vh] md:col-span-9">
       <div v-if="selectedNote" class="flex flex-col gap-8">
         <div class="flex flex-row flex-wrap md:flex-nowrap gap-1">
           <input

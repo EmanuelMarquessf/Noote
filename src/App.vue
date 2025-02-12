@@ -76,9 +76,9 @@ function removeImage(element : string) {
     </div>
     <div class="p-4 px-6 bg-background2/60 h-full rounded-lg col-span-2 min-h-[60vh] md:min-h-[95vh] md:col-span-9">
       <div v-if="selectedNote" class="flex flex-col gap-8">
-        <div class="flex flex-row flex-wrap md:flex-nowrap gap-1">
+        <div class="flex flex-row gap-1">
           <input
-            class="w-full py-2 mt-2 bg-background2/0 text-accent text-2xl font-bold border-2 border-background2/0 focus:outline-none"
+            class="w-full py-2 bg-background2/0 text-accent text-2xl font-bold border-2 border-background2/0 focus:outline-none"
             type="text"
             id="selectedSubject"
             v-model="selectedNote.subject"

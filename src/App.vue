@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, Ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch } from "vue";
 import draggable from "vuedraggable";
 
 import NoteInput from "./components/NoteInput.vue";
@@ -8,8 +8,8 @@ import Divider from "./components/Divider.vue";
 import ImageLoader from "./components/ImageLoader.vue";
 import DateInput from "./components/DateInput.vue";
 
-const notesArray: Ref<Note[]> = ref([]);
-const selectedNote: Ref<Note> = ref({
+const notesArray = ref<Note[]>([]);
+const selectedNote = ref<Note>({
   id: "1",
   subject: "Exemplo de Tópico",
   annotation: "Esta é uma anotação de exemplo.",

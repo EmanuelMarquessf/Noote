@@ -95,7 +95,7 @@ function excludeNote(id: string) {
           ></textarea>
         </div>
         <Divider />
-        <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-4 ">
 
           <ImageLoader
             :selectedNote="selectedNote"
@@ -110,7 +110,7 @@ function excludeNote(id: string) {
             class="grid grid-cols-4 gap-4"
           >
             <template #item="{ element }">
-              <img class="rounded max-h-44" :src="element" alt="" />
+              <img class="rounded md:max-h-72 w-full h-full object-cover" :src="element" alt="" />
             </template>
           </draggable>
         </div>

@@ -7,6 +7,7 @@ import NoteList from "./components/NoteList.vue";
 import Divider from "./components/Divider.vue";
 import ImageLoader from "./components/ImageLoader.vue";
 import DateInput from "./components/DateInput.vue";
+import { isTemplateExpression } from "typescript";
 
 const notesArray = ref<Note[]>([]);
 const selectedNote = ref<Note>();
@@ -45,10 +46,16 @@ function excludeNote(id: string) {
   notesArray.value = notesArray.value.filter((item) => item.id != id);
   selectedNote.value = notesArray.value[0];
 }
+
+function removeImage(element : string) {
+  if (selectedNote.value) {
+    selectedNote.value.images = selectedNote.value?.images.filter((item) => item !== element);
+  }
+};
 </script>
 
 <template>
-  <div class="bg-background w-full md:h-[100vh] grid grid-cols-2 md:grid-cols-12 py-4 px-4  xl:px-72 gap-8">
+  <div class="bg-background w-full  grid grid-cols-2 md:grid-cols-12 py-4 px-4  xl:px-72 gap-8">
     <div class="flex flex-col gap-8 h-full rounded-lg col-span-2 md:col-span-3">
       <NoteInput @addNote="(note : Note) => notesArray.push(note)" />
       <div class="flex flex-col gap-1 bg-background2/60 flex-1 rounded-lg">
@@ -67,7 +74,7 @@ function excludeNote(id: string) {
         </draggable>
       </div>
     </div>
-    <div class="p-4 px-6 bg-background2/60 h-full rounded-lg col-span-2 min-h-[60vh] md:col-span-9">
+    <div class="p-4 px-6 bg-background2/60 h-full rounded-lg col-span-2 min-h-[60vh] md:min-h-[95vh] md:col-span-9">
       <div v-if="selectedNote" class="flex flex-col gap-8">
         <div class="flex flex-row flex-wrap md:flex-nowrap gap-1">
           <input
@@ -95,11 +102,12 @@ function excludeNote(id: string) {
           ></textarea>
         </div>
         <Divider />
-        <div class="flex flex-col gap-4 ">
+        <div class="flex flex-col gap-4">
 
           <ImageLoader
             :selectedNote="selectedNote"
             @addImage="(url : string) => selectedNote?.images.push(url)"
+            class=""
           />
 
           <draggable
@@ -109,8 +117,16 @@ function excludeNote(id: string) {
             :animation="500"
             class="grid grid-cols-4 gap-4"
           >
-            <template #item="{ element }">
-              <img class="rounded md:max-h-40 lg:max-h-44 xl:max-h-72 w-full h-full object-cover" :src="element" alt="" />
+            <template #item="{ element }" >
+              <div class="relative group">
+                <img class="rounded max-h-44 w-full h-full object-cover" :src="element" alt="" />
+                <v-icon
+                  class="text-primary cursor-pointer w-6 h-6 transition-opacity ease-linear duration-100 opacity-0 group-hover:opacity-100 absolute top-0 right-0 m-2"
+                  name="bi-trash-fill"
+                  @click="removeImage(element)"
+                />
+
+              </div>
             </template>
           </draggable>
         </div>

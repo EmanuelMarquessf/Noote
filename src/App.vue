@@ -118,9 +118,9 @@ function removeImage(element : string) {
           >
             <template #item="{ element }" >
               <div class="relative group">
-                <img class="rounded max-h-44 w-full h-full object-cover" :src="element" alt="" />
+                <img class="rounded max-h-60 w-full h-full object-cover" :src="element" alt="" />
                 <v-icon
-                  class="text-primary cursor-pointer w-6 h-6 transition-opacity ease-linear duration-100 opacity-0 group-hover:opacity-100 absolute top-0 right-0 m-2"
+                  class="text-background cursor-pointer w-6 h-6 transition-opacity ease-linear duration-100 opacity-0 group-hover:opacity-100 absolute top-0 right-0 m-2"
                   name="bi-trash-fill"
                   @click="removeImage(element)"
                 />

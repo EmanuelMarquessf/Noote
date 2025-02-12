@@ -7,7 +7,6 @@ import NoteList from "./components/NoteList.vue";
 import Divider from "./components/Divider.vue";
 import ImageLoader from "./components/ImageLoader.vue";
 import DateInput from "./components/DateInput.vue";
-import { isTemplateExpression } from "typescript";
 
 const notesArray = ref<Note[]>([]);
 const selectedNote = ref<Note>();

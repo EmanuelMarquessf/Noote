@@ -110,7 +110,7 @@ function excludeNote(id: string) {
             class="grid grid-cols-4 gap-4"
           >
             <template #item="{ element }">
-              <img class="rounded" :src="element" alt="" />
+              <img class="rounded max-h-44" :src="element" alt="" />
             </template>
           </draggable>
         </div>

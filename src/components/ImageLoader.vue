@@ -25,12 +25,12 @@ const addImage = () => {
         v-model="typedAux"
         placeholder="Image URL"
         type="text"
-        class="py-2 px-4 col-span-10 bg-customBlue-450/80 rounded focus:border-none text-customBlue-50 focus:outline-none"
+        class="py-2 px-4 col-span-8 md:col-span-10 bg-customBlue-450/80 rounded focus:border-none text-customBlue-50 focus:outline-none"
       />
       <button
         :disabled="!typedAux || props.selectedNote?.images.length > 7"
         @click="addImage"
-        class="bg-secondary py-3 col-span-2 rounded disabled:opacity-40"
+        class="bg-secondary py-3 col-span-4 md:col-span-2 rounded disabled:opacity-60 text-text"
       >
         Load
       </button>

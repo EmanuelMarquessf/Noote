@@ -9,14 +9,7 @@ import ImageLoader from "./components/ImageLoader.vue";
 import DateInput from "./components/DateInput.vue";
 
 const notesArray = ref<Note[]>([]);
-const selectedNote = ref<Note>({
-  id: "1",
-  subject: "Exemplo de Tópico",
-  annotation: "Esta é uma anotação de exemplo.",
-  createdAtDate: "2025-02-06",
-  createdAtTime: "12:00",
-  images: [],
-});
+const selectedNote = ref<Note>();
 let previousLength = 0;
 
 
@@ -33,7 +26,8 @@ onMounted(() => {
   let storageValue = localStorage.getItem("notesArray");
   if(storageValue){
     notesArray.value = JSON.parse(storageValue);
-    previousLength = notesArray.value.length
+    selectedNote.value = notesArray.value[notesArray.value.length-1]
+    previousLength = notesArray.value.length;
   }
 })
 
@@ -54,12 +48,15 @@ function excludeNote(id: string) {
 </script>
 
 <template>
-  <div class="bg-background w-full h-[100vh] grid grid-cols-12 py-4 px-72 gap-8">
-    <div class="flex flex-col gap-8 h-full rounded-lg col-span-3">
+  <div class="bg-background w-full md:h-[100vh] grid grid-cols-2 md:grid-cols-12 py-4 px-4  xl:px-72 gap-8">
+    <div class="flex flex-col gap-8 h-full rounded-lg col-span-2 md:col-span-3">
       <NoteInput @addNote="(note : Note) => notesArray.push(note)" />
-      <div class="bg-background2/60 flex-1 rounded-lg">
+      <div class="flex flex-col gap-1 bg-background2/60 flex-1 rounded-lg">
+        <label class="text-secondary font-semibold text-lg py-2 px-2 bg-customBlue-400 rounded" >Note List</label>
         <draggable v-model="notesArray" tag="ul" item-key="id" :animation="300">
+          
           <template #item="{ element: note }">
+            
             <NoteList
               :note="note"
               :selectedNote="selectedNote"
@@ -70,9 +67,9 @@ function excludeNote(id: string) {
         </draggable>
       </div>
     </div>
-    <div class="p-4 px-6 bg-background2/60 h-full rounded-lg col-span-9">
+    <div class="p-4 px-6 bg-background2/60 h-full rounded-lg col-span-2 md:col-span-9">
       <div v-if="selectedNote" class="flex flex-col gap-8">
-        <div class="flex flex-row gap-1">
+        <div class="flex flex-row flex-wrap md:flex-nowrap gap-1">
           <input
             class="w-full py-2 mt-2 bg-background2/0 text-accent text-2xl font-bold border-2 border-background2/0 focus:outline-none"
             type="text"
